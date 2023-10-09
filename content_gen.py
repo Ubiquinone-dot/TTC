@@ -12,16 +12,14 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 from langchain import PromptTemplate
 import openai
-from dotenv import load_dotenv
 
 # Get API key
-load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()  # from .env file
 config_list = config_list_from_json(env_or_file="OAI_CONFIG_LIST")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Define research function
-
-
 def search(query):
     url = "https://google.serper.dev/search"
 
@@ -59,7 +57,8 @@ def scrape(url: str):
 
     # Send the POST request
     response = requests.post(
-        "https://chrome.browserless.io/content?token=2db344e9-a08a-4179-8f48-195a2f7ea6ee", headers=headers, data=data_json)
+        "https://chrome.browserless.io/content?token=2db344e9-a08a-4179-8f48-195a2f7ea6ee", 
+        headers=headers, data=data_json)
 
     # Check the response status code
     if response.status_code == 200:
@@ -246,7 +245,8 @@ llm_config_content_assistant = {
             },
         },
     ],
-    "config_list": config_list}
+    "config_list": config_list
+}
 
 writing_assistant = autogen.AssistantAgent(
     name="writing_assistant",
